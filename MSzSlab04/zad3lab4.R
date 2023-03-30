@@ -1,0 +1,14 @@
+#X=N(m=?,s=?)
+a1=2
+a2=10
+p1=0.05
+p2=0.9
+A=matrix(c(1,1,qnorm(p1),qnorm(p2)),2,2)
+A
+b=c(a1,a2)
+par=solve(A)%*%b
+par
+m=par[1]
+s=par[2]
+m
+s
