@@ -14,4 +14,4 @@ B^(-1)
 t(B)
 det(A)
 det(B)
-A[1,]%*%B[,2]
+A[1,]%*%B[,2] #This calculates the dot product of the first row of matrix A and the second column of matrix B.
