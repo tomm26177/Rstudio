@@ -3,5 +3,6 @@ dzielenie=function(a,b){
   b=6
   a%/%b
   a%%b
+  
 }
 dzielenie
