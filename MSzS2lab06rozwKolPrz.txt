@@ -1,0 +1,378 @@
+﻿Zadanie 1
+
+Zadanie 1:
+
+Tworzy zmienną n i przypisuje jej wartość od 1 do 15 za pomocą operatora ":". Oznacza to, że n przyjmie wartości od 1 do 15 włącznie.
+Oblicza wartości an (dla każdego n) zgodnie z wzorem: 3n/(2n+1) i przypisuje je do zmiennej an.
+Wyświetla wartości an w konsoli.
+Oblicza średnią wartość an i wyświetla ją w konsoli.
+Oblicza odchylenie standardowe wartości an i wyświetla je w konsoli.
+Tworzy obiekt data.frame, który zawiera dwie kolumny i jedno wiersz. Kolumny są nazwane "średnia an" i "odchylenie an" i zawierają wartości średniej an oraz odchylenia standardowego an, które obliczono wcześniej. Obiekt ten zostaje wyświetlony w konsoli.
+
+
+Skrypt
+n=1:15
+an=3*n/(2*n+1)
+an
+mean(an)
+sd(an)
+data.frame("średnia an"=mean(an),"odchylenie an"=sd(an))
+
+Konsola
+> n=1:15
+
+> an=3*n/(2*n+1)
+
+> an
+ [1] 1.000000 1.200000 1.285714 1.333333 1.363636 1.384615
+ [7] 1.400000 1.411765 1.421053 1.428571 1.434783 1.440000
+[13] 1.444444 1.448276 1.451613
+
+> mean(an)
+[1] 1.363187
+
+> sd(an)
+[1] 0.1224495
+
+> data.frame("średnia an"=mean(an),"odchylenie an"=sd(an))
+  średnia.an odchylenie.an
+1   1.363187     0.1224495
+
+Zadanie 2
+
+
+Tworzy macierz A o wymiarach 3x3, wypełnioną wartościami z wektora c(2,1,1,1,4,-1,-1,2,2).
+Tworzy wektor b o wartościach 2, 7, 2.
+Oblicza odwrotność macierzy A i przypisuje ją do zmiennej Aodw.
+Wyświetla macierz Aodw w konsoli.
+Oblicza wyznacznik macierzy A i wyświetla go w konsoli.
+Oblicza wartości x, y, z, które są wynikiem mnożenia odwrotności macierzy A przez wektor b. Wyniki te są przypisywane do zmiennej w.
+Przypisuje wartość w[1] do zmiennej x, w[2] do zmiennej y, w[3] do zmiennej z.
+Tworzy obiekt data.frame, który zawiera trzy kolumny i jeden wiersz. Kolumny są nazwane "x", "y" i "z" i zawierają wartości x, y, z, które obliczono wcześniej. Obiekt ten zostaje wyświetlony w konsoli.
+
+
+Skrypt
+A=matrix(c(2,1,1,1,4,-1,-1,2,2),3,3)
+b=c(2,7,2)
+Aodw=solve(A)
+Aodw
+det(A)
+w=solve(A)%*%b
+w
+x=w[1]
+y=w[2]
+z=w[3]
+ROZW=data.frame(x=w[1],y=w[2],z=w[3])
+ROZW
+
+Konsola
+> A=matrix(c(2,1,1,1,4,-1,-1,2,2),3,3)
+
+> b=c(2,7,2)
+
+> Aodw=solve(A)
+
+> Aodw
+     [,1]  [,2]  [,3]
+[1,]  0.4 -0.04  0.24
+[2,]  0.0  0.20 -0.20
+[3,] -0.2  0.12  0.28
+
+> det(A)
+[1] 25
+
+> w=solve(A)%*%b
+
+> w
+     [,1]
+[1,]    1
+[2,]    1
+[3,]    1
+
+> x=w[1]
+
+> y=w[2]
+
+> z=w[3]
+
+> ROZW=data.frame(x=w[1],y=w[2],z=w[3])
+
+> ROZW
+  x y z
+1 1 1 1
+
+
+Zadanie 3 dotyczy rozkładu geometrycznego, który opisuje czas oczekiwania na wystąpienie pierwszego sukcesu w serii prób niezależnych, przy czym prawdopodobieństwo sukcesu w każdej próbie wynosi p, a porażki brak sukcesu.
+
+W skrypcie najpierw ustalono wartość prawdopodobieństwa wypadku na p=0.09, a następnie określono zmienne: X - liczba dni z brakiem wypadku do wystąpienia wypadku, a RP - ramkę danych zawierającą wartości zmiennej X oraz odpowiadające im wartości funkcji prawdopodobieństwa rozkładu geometrycznego z parametrem p. Następnie wyświetlono ramkę danych RP oraz narysowano jej wykres.
+
+Dalej, przy użyciu wzorów na wartość oczekiwaną EX i wariancję D2X rozkładu geometrycznego obliczono ich wartości dla ustalonego wcześniej prawdopodobieństwa p. Następnie wyznaczono prawdopodobieństwo PA, że wypadek wystąpi w piątym dniu (czyli że przez 4 dni nie będzie wypadku), za pomocą funkcji dgeom.
+
+Następnie wyznaczono prawdopodobieństwo PB, że wypadek wystąpi w ciągu pierwszych 6 dni (włącznie z pierwszym dniem), korzystając z funkcji pgeom.
+
+Ostatnim obliczeniem w tym skrypcie jest wyznaczenie prawdopodobieństwa PC, że wypadek nie wystąpi w ciągu pierwszych 10 dni, za pomocą odjęcia od 1 prawdopodobieństwa skumulowanego P(X<=10), które obliczono z funkcją pgeom.
+
+Na końcu została wyznaczona wartość zmiennej k, czyli liczby dni, które muszą minąć do wystąpienia pierwszego wypadku z prawdopodobieństwem nie mniejszym niż 0.9, korzystając z funkcji qgeom.
+
+Skrypt
+# rozkład geometryczny, sukces-wypadek, porażka-brak wypadku
+p=0.09 # prawdopodobieństwo wypadku
+#X- liczba dni z brakiem wypadku  do wystąpienia wypadku
+X=0:20 #teoretycznie do nieskończoności
+RP=data.frame(X,pi=dgeom(X,p)) #rozkład prawdopodobieństwa
+RP
+plot(RP)
+
+EX=1/p #wartość oczekiwana
+EX
+D2X=(1-p)/p^2 #wariancja
+D2X
+
+PA=dgeom(4,p) # P(X=4) wypadek w 5 dniu, czyli 4 dni bez wypadku
+PA
+
+PB=pgeom(6,p) #P(X<7)=P(X<=6)
+PB
+
+PC=1-pgeom(10,p) #P(X>10)=1-P(X<=10) 
+PC
+
+k=qgeom(0.9,p)
+k
+
+Konsola
+> # rozkład geometryczny, sukces-wypadek, porażka-brak wypadku
+> p=0.09 # prawdopodobieństwo wypadku
+
+> #X- liczba dni z brakiem wypadku  do wystąpienia wypadku
+> X=0:20 #teoretycznie do nieskończoności
+
+> RP=data.frame(X,pi=dgeom(X,p)) #rozkład prawdopodobieństwa
+
+> RP
+    X         pi
+1   0 0.09000000
+2   1 0.08190000
+3   2 0.07452900
+4   3 0.06782139
+5   4 0.06171746
+6   5 0.05616289
+7   6 0.05110823
+8   7 0.04650849
+9   8 0.04232273
+10  9 0.03851368
+11 10 0.03504745
+12 11 0.03189318
+13 12 0.02902279
+14 13 0.02641074
+15 14 0.02403378
+16 15 0.02187074
+17 16 0.01990237
+18 17 0.01811116
+19 18 0.01648115
+20 19 0.01499785
+21 20 0.01364804
+
+> plot(RP)
+
+> EX=1/p #wartość oczekiwana
+
+> EX
+[1] 11.11111
+
+> D2X=(1-p)/p^2 #wariancja
+
+> D2X
+[1] 112.3457
+
+> PA=dgeom(4,p) # P(X=4) wypadek w 5 dniu, czyli 4 dni bez wypadku
+
+> PA
+[1] 0.06171746
+
+> PB=pgeom(6,p) #P(X<7)=P(X<=6)
+
+> PB
+[1] 0.483239
+
+> PC=1-pgeom(10,p) #P(X>10)=1-P(X<=10) 
+
+> PC
+[1] 0.3543687
+
+> k=qgeom(0.9,p)
+
+> k
+[1] 24
+
+Zadanie 4 polega na napisaniu programu w języku programowania, który będzie przyjmował jako argumenty trzy liczby całkowite: a, b i c, odpowiadające długości boków trójkąta oraz zwracał informację o rodzaju trójkąta, który można zbudować z tych boków.
+
+Program powinien sprawdzać, czy z boków a, b i c można zbudować trójkąt. Jeśli nie, powinien zwrócić informację o błędnych danych wejściowych. W przypadku, gdy trójkąt da się zbudować, program powinien określić jego rodzaj, na podstawie długości boków.
+
+Możliwe rodzaje trójkątów to:
+
+równoboczny (każdy bok ma taką samą długość),
+równoramienny (dwa boki mają taką samą długość),
+różnoboczny (żaden bok nie ma takiej samej długości jak inny).
+Program powinien zwrócić informację o rodzaju trójkąta w formie tekstu (np. "równoboczny", "równoramienny", "różnoboczny") lub informację o błędnych danych wejściowych, jeśli nie da się zbudować trójkąta.
+
+Skrypt
+#X-rozkład normalny N(1500,30)
+m=1500
+s=300
+#P(X<1200)=F(1200) 
+PA=pnorm(1200,m,s)
+PA
+PA*500 #ile żarówek z 500
+
+#P(X>1600)=1-F(1600) 
+PB=1-pnorm(1600,m,s)
+PB 
+PB*300
+
+#P(1600<X<1800)=F(1800)-F(1600) 
+PC=pnorm(1800,m,s)-pnorm(1600,m,s)
+PC
+
+#25% najlepszych, to 75% najgorszych P(X<k)=0.75
+k=qnorm(0.75,m,s)
+k
+
+Konsola
+
+> #X-rozkład normalny N(1500,30)
+> m=1500
+
+> s=300
+
+> #P(X<1200)=F(1200) 
+> PA=pnorm(1200,m,s)
+
+> PA
+[1] 0.1586553
+
+> PA*500 #ile żarówek z 500
+[1] 79.32763
+
+> #P(X>1600)=1-F(1600) 
+> PB=1-pnorm(1600,m,s)
+
+> PB 
+[1] 0.3694413
+
+> PB*300
+[1] 110.8324
+
+> #P(1600<X<1800)=F(1800)-F(1600) 
+> PC=pnorm(1800,m,s)-pnorm(1600,m,s)
+
+> PC
+[1] 0.2107861
+
+> #25% najlepszych, to 75% najgorszych P(X<k)=0.75
+> k=qnorm(0.75,m,s)
+
+> k
+[1] 1702.347
+
+
+Zadanie 5
+W zadaniu 5 musisz napisać program w języku Python, który wczyta z pliku tekstowego listę liczb całkowitych,
+ a następnie wyznaczy sumę i iloczyn wszystkich liczb w liście.
+
+Program powinien:
+
+wczytać nazwę pliku tekstowego z listą liczb (możesz założyć, że plik zawsze będzie istnieć
+ i będzie poprawnie sformatowany),
+wczytać liczby z pliku do listy,
+wyznaczyć sumę i iloczyn wszystkich liczb w liście,
+wyświetlić sumę i iloczyn w konsoli.
+
+
+
+Skrypt
+#X=N(m,s=?) nieznane odchylenie standardowe
+m=42
+a=36  #P(X<36)=152/1000
+p=152/1000 # kwantyl rzędu p
+s=(a-m)/qnorm(p)
+s
+
+#P(X<24)
+PA=pnorm(24,m,s)
+PA*10000 #na 10000 urzadzen
+
+#kwantyl rzedu 30% 
+qnorm(0.3,m,s)
+
+Konsola
+> #X=N(m,s=?) nieznane odchylenie standardowe
+> m=42
+
+> a=36  #P(X<36)=152/1000
+
+> p=152/1000 # kwantyl rzędu p
+
+> s=(a-m)/qnorm(p)
+
+> s
+[1] 5.837181
+
+> #P(X<24)
+> PA=pnorm(24,m,s)
+
+> PA*10000 #na 10000 urzadzen
+[1] 10.22287
+
+> #kwantyl rzedu 30% 
+> qnorm(0.3,m,s)
+[1] 38.93898
+
+Zadanie 6
+To zadanie dotyczy obliczenia prawdopodobieństwa związanych z rozkładem dwumianowym w kontekście sytuacji zalegania z opłatami.
+
+W skrypcie określono parametry dla rozkładu dwumianowego, gdzie zmienna losowa X reprezentuje liczbę sukcesów w próbie n=500.
+ Prawdopodobieństwo sukcesu wynosi p=0.16.
+
+Następnie, używając funkcji pnorm(), obliczono prawdopodobieństwo, że liczba sukcesów mieści się w przedziale (75,100).
+ Aby to zrobić, zastosowano poprawkę kontinuacji, ponieważ zmienna losowa X przyjmuje wartości całkowite.
+ Ostatecznie wynik to PA=0.04037.
+
+Zadanie 6 dotyczyło podobnej sytuacji, ale z innymi parametrami. Określono parametry dla rozkładu dwumianowego, 
+gdzie zmienna losowa
+ X reprezentuje liczbę sukcesów w próbie n=300. Prawdopodobieństwo sukcesu wynosi p=0.13.
+
+W tym przypadku, obliczono prawdopodobieństwo, że liczba sukcesów przekracza wartość 84, czyli P(X>=85)=P(X>84)=1-P(X<=84).
+ Aby to zrobić,
+ zastosowano poprawkę kontynuacji,
+ ponieważ zmienna losowa X przyjmuje wartości całkowite.
+ Ostatecznie wynik to bardzo mała wartość, wynosząca około 2.89e-15.
+
+Skrypt
+# zaleganie z opłatami - sukces- rozkład dwumianowy
+n=500
+# p - prawdopodobieństwo sukcesu 
+p=0.16
+#!!!uwzgledniamy poprawke, bo zmienna przyjmuje wartości całkowite
+#P(75<X<100)
+a=75-0.5
+b=100+0.5
+PA=pnorm(b,n*p,sqrt(n*p*(1-p)))-pnorm(a,n*p,sqrt(n*p*(1-p)))
+PA
+
+Konsola
+
+> # zaleganie z opłatami - sukces- rozkład dwumianowy
+> n=300
+
+> # p - prawdopodobieństwo sukcesu 
+> p=0.13
+
+> #!!!uwzgledniamy poprawke, bo zmienna przyjmuje wartości całkowite
+> #P(X>=85)=P(X>84)=1-P(X<=84)
+> a=84+0.5
+
+> PA=1-pnorm(a,n*p,sqrt(n*p*(1-p)))
+
+> PA
+[1] 2.88658e-15
